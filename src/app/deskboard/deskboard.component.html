@@ -19,13 +19,14 @@
    <div class="row">
    <div class="col-lg-3">
    <ul class="deskboard_sidebar">
-   <li class="active"><a data-toggle="tab"  href="#">Flight Booking</a></li>
-   <li><a data-toggle="tab"  href="#">My Trip</a></li>
+   <li class="active"><a data-toggle="tab"   routerLink="/deskboard">Flight Booking</a></li>
+   <li><a data-toggle="tab"  routerLink="/myaccount">My Trip</a></li>
    <li><a data-toggle="tab"  href="#">Wallet</a></li>
    <li><a href="#">My Account</a></li>
-   <li><a href="index.html">Logout</a></li>
+   <li><a routerLink="/login">Logout</a></li>
    </ul>
    </div>
+
    
    <div class="col-lg-9 tab-content">
    <div class="Deskboard-data-outer">
@@ -34,29 +35,65 @@
    </div>
 
 <div class="bookflight">
+  <form [formGroup]="SearchForm">
 <ul>
   <li>
     <label>From</label>
-    <input type="text">
+    <input  type="text" required="required" class="form-control" formControlName="from"
+    [ngClass]="{ 'is-invalid': submitted && contactUsValidation.from.errors }">
+<div *ngIf="submitted && contactUsValidation.from.errors" class="invalid-feedback">
+    <div *ngIf="contactUsValidation.from.errors.required">From is required</div>
+</div>
   </li>
   <li>
     <label>To</label>
-    <input type="text">
+    <input  type="text" required="required" class="form-control" formControlName="to"
+    [ngClass]="{ 'is-invalid': submitted && contactUsValidation.to.errors }">
+<div *ngIf="submitted && contactUsValidation.to.errors" class="invalid-feedback">
+    <div *ngIf="contactUsValidation.to.errors.required">To is required</div>
+</div>
   </li>
   <li>
     <label>DEPARTURE</label>
-    <input type="Date">
+    <input  type="Date" required="required" class="form-control" formControlName="departureDate"
+    [ngClass]="{ 'is-invalid': submitted && contactUsValidation.departureDate.errors }">
+<div *ngIf="submitted && contactUsValidation.departureDate.errors" class="invalid-feedback">
+    <div *ngIf="contactUsValidation.departureDate.errors.required">Departure Date is required</div>
+</div>
   </li>
   <li>
     <label>Return</label>
-    <input type="Date">
+    <input  type="Date" required="required" class="form-control" formControlName="return"
+    [ngClass]="{ 'is-invalid': submitted && contactUsValidation.return.errors }">
+<div *ngIf="submitted && contactUsValidation.return.errors" class="invalid-feedback">
+    <div *ngIf="contactUsValidation.return.errors.required">Return Date is required</div>
+</div>
   </li>
+
   <li>
     <label></label>
-    <input class="search" value="Search" type="submit">
+    <input class="search" value="Search" type="submit" (click)="search()">
   </li>
 </ul>
+</form>
+<table class="table table-striped mytable" *ngIf="flightData?.length > 0">
+  <thead>
+    <tr><th>Flight No</th><th>From</th><th>To</th><th>Departure Date</th><th>Departure Time</th><th>Arival Date </th><th>Arival Time </th><th>Total</th></tr>
+  </thead>
+  <tbody>
+ <tr *ngFor="let userflightData of flightData">
+    <td>{{ userflightData.FlightNo }}</td>
+    <td>{{ userflightData.from }}</td>
+    <td>{{ userflightData.to }}</td>
+    <td>{{ userflightData.DepartureDate }}</td>
+    <td>{{ userflightData.DepartureTime }}</td>
+    <td>{{ userflightData.ArivalDate }}</td>
+    <td>{{ userflightData.ArivalTime }}</td>
+ </tr>
 
+
+</tbody>
+</table>
 </div>
 
 

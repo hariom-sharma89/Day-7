@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { DeskboardComponent } from './deskboard/deskboard.component';
 import { MyaccountComponent } from './myaccount/myaccount.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import{LoginService} from '../app/login.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

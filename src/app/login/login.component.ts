@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {LoginService} from '../login.service';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,7 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
-  constructor(private formBuilder: FormBuilder) { }
+  logindetail:any;
+  constructor(private formBuilder: FormBuilder,private loginService:LoginService,private router: Router) { }
 
   ngOnInit(): void {
 
@@ -26,6 +29,15 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     if (this.loginForm.invalid) {
       return;
+    }
+
+    else{
+    if(this.loginForm.controls.username.value=="admin" && this.loginForm.controls.password.value=="admin"){
+      this.router.navigateByUrl('/deskboard');
+    }
+    else{
+      alert("User Name & Password in invalid")
+    }
     }
 
 
